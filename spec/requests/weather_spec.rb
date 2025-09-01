@@ -3,16 +3,15 @@ require 'rails_helper'
 RSpec.describe "Weathers", type: :request do
   describe "GET /index" do
     it "returns http success" do
-      get "/weather/index"
+      get root_path
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET /show" do
+  describe "POST /show" do
     it "returns http success" do
-      get "/weather/show"
+     post weather_path, params: { postal_code: "12345" }
       expect(response).to have_http_status(:success)
     end
   end
-
 end
