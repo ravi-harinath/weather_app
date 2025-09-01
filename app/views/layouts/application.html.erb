@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Weather App" %></title>
+    <title>AccuWeather Forecast</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= yield :head %>
-
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= javascript_include_tag 'application', defer: true %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto p-6">
+      <header class="mb-6">
+        <h1 class="text-3xl font-bold">AccuWeather Forecast</h1>
+        <p class="text-sm text-gray-600">Enter a postal code or address to get the current conditions.</p>
+      </header>
+
+      <% if flash[:alert] %>
+        <div class="bg-red-100 border border-red-300 text-red-800 p-3 rounded mb-4"><%= flash[:alert] %></div>
+      <% end %>
+
+      <%= yield %>
+    </div>
   </body>
 </html>

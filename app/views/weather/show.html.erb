@@ -1,0 +1,40 @@
+<div class="bg-white p-6 rounded shadow">
+  <div class="flex items-center justify-between">
+    <div>
+      <h2 class="text-2xl font-semibold"><%= @weather[:location]['LocalizedName'] %>, <%= @weather[:location]['Country']['LocalizedName'] rescue '' %></h2>
+      <p class="text-sm text-gray-500">Query: <%= @query %></p>
+    </div>
+    <div class="text-sm">
+      <% if @from_cache %>
+        <span class="px-2 py-1 bg-yellow-100 border border-yellow-300 text-yellow-800 rounded">From cache</span>
+      <% else %>
+        <span class="px-2 py-1 bg-green-100 border border-green-300 text-green-800 rounded">Fresh</span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div>
+      <h3 class="text-lg font-medium">Current</h3>
+      <p class="text-4xl font-bold"><%= @weather[:current]['Temperature']['Metric']['Value'] %>°C</p>
+      <p class="text-sm text-gray-600">Feels like: <%= @weather[:current]['RealFeelTemperature']['Metric']['Value'] rescue 'N/A' %>°C</p>
+      <p class="mt-2"><%= @weather[:current]['WeatherText'] %></p>
+    </div>
+    <div>
+      <h3 class="text-lg font-medium">Today's Forecast</h3>
+      <% if @weather[:daily] && @weather[:daily]['DailyForecasts'] %>
+        <% df = @weather[:daily]['DailyForecasts'].first %>
+        <p>Max: <%= df['Temperature']['Maximum']['Value'] %>°C</p>
+        <p>Min: <%= df['Temperature']['Minimum']['Value'] %>°C</p>
+        <p>Day: <%= df['Day']['IconPhrase'] %></p>
+        <p>Night: <%= df['Night']['IconPhrase'] %></p>
+      <% else %>
+        <p>No forecast available.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to 'Search again', root_path, class: 'text-sm text-blue-600' %>
+  </div>
+</div>

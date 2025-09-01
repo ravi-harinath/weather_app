@@ -55,3 +55,15 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# TO make API requests
+gem "httparty"
+
+# styling
+gem "tailwindcss-rails"
+
+
+# Env + test tools
+gem "dotenv-rails", groups: [ :development, :test ]
+gem "rspec-rails", group: [ :development, :test ]
+gem "webmock", group: :test
